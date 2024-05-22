@@ -1,31 +1,129 @@
-import NewTaskForm from '../new-task-form';
-import TaskList from '../task-list';
+import { Component } from 'react';
+
+import AppHeader from '../app-header';
+import AddForm from '../add-form';
+import TodoList from '../todo-list';
 import Footer from '../footer';
-import { formatDistanceStrict } from 'date-fns';
-import './app.css'
+import './app.css';
 
-const App = () => {
+export default class App extends Component {
+  maxId = 100;
 
-  const distance = formatDistanceStrict(
-    new Date(2024, 4, 12, 12, 10, 35),
-    new Date()
-  );
+  state = {
+    filter: 'all',
+    todoData: [],
+  };
 
-  const todoData = [
-    { id: 1, description: 'Completed task', created: `${distance} ago`, completed: true, editing: false },
-    { id: 2, description: 'Editing task', created: `${distance} ago`, completed: false, editing: true },
-    { id: 3, description: 'Active task', created: `${distance} ago`, completed: false, editing: false }
-  ];
+  createItem(label) {
+    return {
+      id: this.maxId++,
+      label,
+      done: false,
+      dateCreated: new Date(),
+    };
+  }
 
-  return (
-    <div className="todoapp">
-      <div className="main">
-        <NewTaskForm />
-        <TaskList todos = {todoData} />
-        <Footer />
+  addItem = (text) => {
+    const newItem = this.createItem(text);
+    this.setState(({ todoData }) => {
+      let newArray = [newItem, ...todoData];
+      return {
+        todoData: newArray,
+      };
+    });
+  };
+
+  toggleEditMode = (id) => {
+    this.setState(({ todoData }) => {
+      const idx = todoData.findIndex((el) => el.id === id);
+      const oldItem = todoData[idx];
+      const updatedItem = { ...oldItem, editMode: !oldItem.editMode };
+      const newArray = [...todoData.slice(0, idx), updatedItem, ...todoData.slice(idx + 1)];
+      return {
+        todoData: newArray,
+      };
+    });
+  };
+
+  editItem = (id, newText) => {
+    this.setState(({ todoData }) => {
+      const idx = todoData.findIndex((el) => el.id === id);
+      const oldItem = todoData[idx];
+      const updatedItem = { ...oldItem, label: newText, editMode: false };
+      const newArray = [...todoData.slice(0, idx), updatedItem, ...todoData.slice(idx + 1)];
+      return {
+        todoData: newArray,
+      };
+    });
+  };
+
+  deleteItem = (id) => {
+    this.setState(({ todoData }) => {
+      const idx = todoData.findIndex((el) => el.id === id);
+      let newArray = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)];
+      return {
+        todoData: newArray,
+      };
+    });
+  };
+
+  setFilter = (filter) => {
+    this.setState({ filter });
+  };
+
+  deleteCompletedItem = () => {
+    this.setState(({ todoData }) => {
+      let newArray = todoData.filter((el) => el.done === false);
+      return {
+        todoData: newArray,
+      };
+    });
+  };
+
+  onToggleDone = (id) => {
+    this.setState(({ todoData }) => {
+      const idx = todoData.findIndex((el) => el.id === id);
+      const oldItem = todoData[idx];
+      const newItem = { ...oldItem, done: !oldItem.done };
+      let newArray = [...todoData.slice(0, idx), newItem, ...todoData.slice(idx + 1)];
+      return {
+        todoData: newArray,
+      };
+    });
+  };
+
+  render() {
+    const { todoData, filter } = this.state;
+    const doneCount = todoData.filter((el) => !el.done).length;
+
+    let filteredTasks = todoData;
+    if (filter === 'completed') {
+      filteredTasks = todoData.filter((task) => task.done === true);
+    }
+    if (filter === 'active') {
+      filteredTasks = todoData.filter((task) => task.done === false);
+    }
+
+    return (
+      <div className="todoapp">
+        <div className="main">
+          <AppHeader />
+          <AddForm addItem={this.addItem} />
+          <TodoList
+            todos={filteredTasks}
+            onToggleDone={this.onToggleDone}
+            toggleEditMode={this.toggleEditMode}
+            editItem={this.editItem}
+            deleteItem={this.deleteItem}
+          />
+          <Footer
+            doneCount={doneCount}
+            setFilter={this.setFilter}
+            activeFilter={filter}
+            deleteCompletedItem={this.deleteCompletedItem}
+          />
+        </div>
       </div>
-    </div>
-  );
-};
-
-export default App
+    );
+  }
+}

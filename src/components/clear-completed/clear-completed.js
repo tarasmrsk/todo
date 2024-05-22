@@ -1,9 +1,14 @@
-import './clear-completed.css'
+import { Component } from 'react';
+import './clear-completed.css';
 
-const ClearCompleted = () => {
+export default class ClearCompleted extends Component {
+  render() {
+    const { deleteCompletedItem } = this.props;
+
     return (
-        <button className="clear-completed">Clear completed</button>
+      <button className="clear-completed" onClick={deleteCompletedItem}>
+        Clear completed
+      </button>
     );
-  };
-  
-export default ClearCompleted
+  }
+}

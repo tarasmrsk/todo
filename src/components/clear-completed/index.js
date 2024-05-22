@@ -1,3 +1,3 @@
-import ClearCompleted from "./clear-completed";
+import ClearCompleted from './clear-completed';
 
-export default ClearCompleted
+export default ClearCompleted;

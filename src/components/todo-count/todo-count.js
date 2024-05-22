@@ -1,11 +1,10 @@
-import './todo-count.css'
+import { Component } from 'react';
+import './todo-count.css';
 
-const TodoCount = () => {
-    return (
-        <span className="todo-count">
-            1 items left
-        </span>
-    );
-};
+export default class TodoCount extends Component {
+  render() {
+    const { doneCount } = this.props;
 
-export default TodoCount
+    return <span className="todo-count">{doneCount} items left</span>;
+  }
+}
