@@ -1,12 +1,12 @@
-import { Component } from 'react';
-import './tasks-filter.css';
+import { Component } from 'react'
+import './tasks-filter.css'
 
 export default class TasksFilter extends Component {
   render() {
-    const { setFilter, activeFilter } = this.props;
-    const onAllClickHandler = () => setFilter('all');
-    const onActiveClickHandler = () => setFilter('active');
-    const onCompletedClickHandler = () => setFilter('completed');
+    const { setFilter, activeFilter } = this.props
+    const onAllClickHandler = () => setFilter('all')
+    const onActiveClickHandler = () => setFilter('active')
+    const onCompletedClickHandler = () => setFilter('completed')
 
     return (
       <ul className="filters">
@@ -26,6 +26,6 @@ export default class TasksFilter extends Component {
           </button>
         </li>
       </ul>
-    );
+    )
   }
 }

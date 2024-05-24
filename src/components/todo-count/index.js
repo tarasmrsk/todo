@@ -1,3 +1,3 @@
-import TodoCount from './todo-count';
+import TodoCount from './todo-count'
 
-export default TodoCount;
+export default TodoCount

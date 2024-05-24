@@ -1,7 +1,7 @@
-import TodoCount from '../todo-count';
-import TasksFilter from '../tasks-filter';
-import ClearCompleted from '../clear-completed';
-import './footer.css';
+import TodoCount from '../todo-count'
+import TasksFilter from '../tasks-filter'
+import ClearCompleted from '../clear-completed'
+import './footer.css'
 
 const Footer = ({ doneCount, currentTab, setFilter, activeFilter, deleteCompletedItem }) => {
   return (
@@ -10,7 +10,7 @@ const Footer = ({ doneCount, currentTab, setFilter, activeFilter, deleteComplete
       <TasksFilter currentTab={currentTab} setFilter={setFilter} activeFilter={activeFilter} />
       <ClearCompleted deleteCompletedItem={deleteCompletedItem} />
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

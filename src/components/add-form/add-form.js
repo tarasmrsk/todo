@@ -1,23 +1,23 @@
-import { Component } from 'react';
-import './add-form.css';
+import { Component } from 'react'
+import './add-form.css'
 
 export default class AddForm extends Component {
   state = {
     label: '',
-  };
+  }
 
   handleChange = (e) => {
     this.setState({
       label: e.target.value,
-    });
-  };
+    })
+  }
 
   handleKeyPress = (e) => {
     if (e.key === 'Enter' && this.state.label.trim() !== '') {
-      this.props.addItem(this.state.label);
-      this.setState({ label: '' });
+      this.props.addItem(this.state.label)
+      this.setState({ label: '' })
     }
-  };
+  }
 
   render() {
     return (
@@ -29,6 +29,6 @@ export default class AddForm extends Component {
         onChange={this.handleChange}
         onKeyPress={this.handleKeyPress}
       />
-    );
+    )
   }
 }
