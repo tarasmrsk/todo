@@ -7,21 +7,27 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended",
     "plugin:import/errors",
-    "plugin:import/warnings"
+    "plugin:import/warnings",
+    "airbnb",
+    "prettier"
   ],
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
+    "requireConfigFile": false,
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": "latest", 
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    },
+    "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier", "import"],
+  "plugins": ["react", "import"],
   "rules": {
     "indent": ["error", 2],
-    "prettier/prettier": "error",
+    "react/state-in-constructor": 0,
     "linebreak-style": [0, "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
@@ -35,7 +41,13 @@
         "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
         "newlines-between": "always"
       }
-    ]
+    ],
+    "no-plusplus": 0,
+    "import/no-extraneous-dependencies": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "no-nested-ternary": 0,
+    "jsx-a11y/control-has-associated-label": 0,
+    "object-curly-newline": ["error", { "multiline": true, "consistent": true }]
   },
   "settings": {
     "import/resolver": {
@@ -43,6 +55,9 @@
         "extensions": [".js", ".jsx", ".ts", ".tsx"],
         "moduleDirectory": ["node_modules", "src/"]
       }
+    },
+    "react": {
+      "version": "detect"
     }
   }
 }

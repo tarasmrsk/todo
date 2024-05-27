@@ -13,19 +13,21 @@ export default class AddForm extends Component {
   }
 
   handleKeyPress = (e) => {
-    if (e.key === 'Enter' && this.state.label.trim() !== '') {
-      this.props.addItem(this.state.label)
+    const { label } = this.state
+    if (e.key === 'Enter' && label.trim() !== '') {
+      const { addItem } = this.props
+      addItem(label)
       this.setState({ label: '' })
     }
   }
 
   render() {
+    const { label } = this.state
     return (
       <input
         className="new-todo"
         placeholder="What needs to be done?"
-        autoFocus
-        value={this.state.label}
+        value={label}
         onChange={this.handleChange}
         onKeyPress={this.handleKeyPress}
       />

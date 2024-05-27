@@ -14,19 +14,10 @@ export default class App extends Component {
     todoData: [],
   }
 
-  createItem(label) {
-    return {
-      id: this.maxId++,
-      label,
-      done: false,
-      dateCreated: new Date(),
-    }
-  }
-
   addItem = (text) => {
     const newItem = this.createItem(text)
     this.setState(({ todoData }) => {
-      let newArray = [newItem, ...todoData]
+      const newArray = [newItem, ...todoData]
       return {
         todoData: newArray,
       }
@@ -60,7 +51,7 @@ export default class App extends Component {
   deleteItem = (id) => {
     this.setState(({ todoData }) => {
       const idx = todoData.findIndex((el) => el.id === id)
-      let newArray = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)]
+      const newArray = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)]
       return {
         todoData: newArray,
       }
@@ -73,7 +64,7 @@ export default class App extends Component {
 
   deleteCompletedItem = () => {
     this.setState(({ todoData }) => {
-      let newArray = todoData.filter((el) => el.done === false)
+      const newArray = todoData.filter((el) => el.done === false)
       return {
         todoData: newArray,
       }
@@ -85,11 +76,20 @@ export default class App extends Component {
       const idx = todoData.findIndex((el) => el.id === id)
       const oldItem = todoData[idx]
       const newItem = { ...oldItem, done: !oldItem.done }
-      let newArray = [...todoData.slice(0, idx), newItem, ...todoData.slice(idx + 1)]
+      const newArray = [...todoData.slice(0, idx), newItem, ...todoData.slice(idx + 1)]
       return {
         todoData: newArray,
       }
     })
+  }
+
+  createItem(label) {
+    return {
+      id: this.maxId++,
+      label,
+      done: false,
+      dateCreated: new Date(),
+    }
   }
 
   render() {

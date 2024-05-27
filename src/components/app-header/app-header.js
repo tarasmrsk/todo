@@ -1,11 +1,13 @@
+import React, { Component } from 'react'
 import './app-header.css'
 
-const AppHeader = () => {
-  return (
-    <header className="header">
-      <h1>Todo List</h1>
-    </header>
-  )
+// eslint-disable-next-line react/prefer-stateless-function
+export default class AppHeader extends Component {
+  render() {
+    return (
+      <header className="header">
+        <h1>Todo List</h1>
+      </header>
+    )
+  }
 }
-
-export default AppHeader
