@@ -5,11 +5,10 @@
   },
   "ignorePatterns": ["node_modules", "dist", "build"],
   "extends": [
-    "eslint:recommended",
+    "airbnb",
     "plugin:react/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "airbnb",
     "prettier"
   ],
   "parser": "@babel/eslint-parser",
